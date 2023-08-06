@@ -10,11 +10,31 @@ class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const contacts = localStorage.getItem('storyContacts');
+    const parsedContacts = JSON.parse(contacts);
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem(
+        'storyContacts',
+        JSON.stringify(this.state.contacts)
+      );
+    }
+  }
+
   addContact = ({ name: nameProps, number: numberProps }) => {
     const includsName = this.state.contacts.find(
-      ({ name, number }) => name.toLowerCase() === nameProps.toLowerCase() || number === numberProps
+      ({ name, number }) =>
+        name.toLowerCase() === nameProps.toLowerCase() || number === numberProps
     );
-    
+
     if (includsName) {
       alert(`${nameProps} is already in contacts`);
       return;
