@@ -36,7 +36,7 @@ class App extends Component {
     );
 
     if (includsName) {
-      alert(`${nameProps} is already in contacts`);
+      alert(`Name ${nameProps}, phone ${numberProps} is already in contacts`);
       return;
     }
     const contact = {
